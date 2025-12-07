@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="2; https://t.me/+XJbSkVdj38BiMmNh">
+<meta http-equiv="refresh" content="3; https://t.me/+XJbSkVdj38BiMmNh">
 <title>Redirecionando...</title>
 
 <!-- Meta Pixel Code -->
@@ -18,7 +18,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 
 fbq('init', '1214538850595571'); 
 fbq('track', 'PageView');
-fbq('track', 'Lead'); 
+fbq('trackCustom', 'PagamentoConfirmado'); 
 </script>
 
 <noscript>
@@ -34,11 +34,34 @@ body{
     text-align: center;
     padding-top: 70px;
 }
+
+#timer {
+    font-size: 40px;
+    font-weight: bold;
+    color: #d60000;
+    margin-top: 10px;
+    animation: pulse 0.9s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
 </style>
 </head>
 
 <body>
 <h2>Redirecionando para o Grupo VIP...</h2>
-<p>Aguarde 2 segundos</p>
+<p>Aguarde <span id="timer">3</span> segundos</p>
+
+<script>
+let t = 3;
+setInterval(() => {
+    t--;
+    if(t >= 0) document.getElementById("timer").innerText = t;
+}, 1000);
+</script>
+
 </body>
 </html>
