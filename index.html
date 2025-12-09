@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="3; https://t.me/+XJbSkVdj38BiMmNh">
 <title>Redirecionando...</title>
 
 <!-- Meta Pixel Code -->
@@ -50,14 +49,21 @@ body{
 </head>
 
 <body>
-<h2>Redirecionando para o Grupo VIP...</h2>
+<h2>Pagamento Confirmado! Redirecionando para o Grupo VIP...</h2>
 <p>Aguarde <span id="timer">3</span> segundos</p>
 
 <script>
-let t = 3;
-setInterval(() => {
-    t--;
-    if(t >= 0) document.getElementById("timer").innerText = t;
+// **IMPORTANTE**: tempo suficiente para o Pixel enviar eventos
+let segundos = 3;
+
+const intervalo = setInterval(() => {
+    segundos--;
+    document.getElementById("timer").innerText = segundos;
+
+    if (segundos <= 0) {
+        clearInterval(intervalo);
+        window.location.href = "https://t.me/+XJbSkVdj38BiMmNh";
+    }
 }, 1000);
 </script>
 
