@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Redirecionando...</title>
+<title>Pagamento Confirmado</title>
 
 <!-- Meta Pixel Code -->
 <script>
@@ -33,39 +33,32 @@ body{
     text-align: center;
     padding-top: 70px;
 }
-#timer {
-    font-size: 40px;
+
+.botao {
+    display: inline-block;
+    background: #d60000;
+    color: #fff;
+    padding: 18px 32px;
+    font-size: 22px;
     font-weight: bold;
-    color: #d60000;
-    margin-top: 10px;
-    animation: pulse 0.9s infinite;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-top: 25px;
+    transition: 0.2s;
 }
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+
+.botao:hover {
+    background: #b30000;
+    transform: scale(1.05);
 }
 </style>
 </head>
 
 <body>
-<h2>Pagamento Confirmado! Redirecionando para o Grupo VIP...</h2>
-<p>Aguarde <span id="timer">3</span> segundos</p>
+<h2>Pagamento Confirmado!</h2>
+<p>Clique no botão abaixo para entrar no Grupo VIP:</p>
 
-<script>
-// **IMPORTANTE**: tempo suficiente para o Pixel enviar eventos
-let segundos = 3;
-
-const intervalo = setInterval(() => {
-    segundos--;
-    document.getElementById("timer").innerText = segundos;
-
-    if (segundos <= 0) {
-        clearInterval(intervalo);
-        window.location.href = "https://t.me/+XJbSkVdj38BiMmNh";
-    }
-}, 1000);
-</script>
+<a href="https://t.me/+XJbSkVdj38BiMmNh" class="botao">Grupo VIP</a>
 
 </body>
 </html>
