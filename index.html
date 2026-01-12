@@ -21,7 +21,14 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 
 fbq('init', '818826874479120');
 fbq('track', 'PageView');
-fbq('trackCustom', 'PagamentoConfirmado');
+
+/*
+ 🔒 CONTROLE DE CONVERSÃO ÚNICA
+*/
+if (!localStorage.getItem('pagamento_confirmado_enviado')) {
+    fbq('trackCustom', 'PagamentoConfirmado');
+    localStorage.setItem('pagamento_confirmado_enviado', 'true');
+}
 </script>
 
 <noscript>
