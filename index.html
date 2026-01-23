@@ -13,14 +13,18 @@
   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
   n.queue=[];t=b.createElement(e);t.async=!0;
   t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  s.parentNode.insertBefore(t,s)
+  }(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
 
-  /* Inicializa Pixel */
+  /* INICIALIZA PIXEL */
   fbq('init', '818826874479120');
   fbq('track', 'PageView');
 
-  /* Pagamento Confirmado (1 disparo) */
+  /* ==========================
+     PAGAMENTO CONFIRMADO
+     (PIXEL – 1 DISPARO)
+  ========================== */
   if (!sessionStorage.getItem('pagamento_confirmado_enviado')) {
 
     fbq('trackCustom', 'PagamentoConfirmado', {
@@ -29,6 +33,28 @@
     });
 
     sessionStorage.setItem('pagamento_confirmado_enviado', 'true');
+  }
+
+  /* ==========================
+     CAPI – SERVER SIDE
+     (1 DISPARO)
+  ========================== */
+  if (!localStorage.getItem('capi_pagamento_enviado')) {
+
+    fetch('https://n8n.srv1211783.hstgr.cloud/webhook-test/meta-capi', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        event_name: 'PagamentoConfirmado',
+        value: 19.97,
+        currency: 'BRL',
+        event_id: 'pc_' + Date.now()
+      })
+    });
+
+    localStorage.setItem('capi_pagamento_enviado', 'true');
   }
   </script>
 
@@ -86,12 +112,6 @@
       margin-bottom: 18px;
     }
 
-    .status::before{
-      content: "●";
-      color: #2dff6a;
-      margin-right: 6px;
-    }
-
     .description{
       font-size: 15px;
       line-height: 1.45;
@@ -109,19 +129,6 @@
       cursor: pointer;
       background: linear-gradient(90deg, #ff2e63, #ff6a00);
       color: #fff;
-      transition: transform .15s ease, box-shadow .15s ease;
-      box-shadow: 0 10px 25px rgba(255,46,99,0.35);
-    }
-
-    .cta:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 14px 32px rgba(255,46,99,0.45);
-    }
-
-    .secure{
-      margin-top: 14px;
-      font-size: 12px;
-      color: #8a8a8a;
     }
   </style>
 </head>
@@ -129,9 +136,8 @@
 <body>
 
   <div class="container">
-    <img 
-      class="avatar" 
-      src="https://viccastro-web.github.io/viccastro-Chat/avatar.jpg" 
+    <img class="avatar"
+      src="https://viccastro-web.github.io/viccastro-Chat/avatar.jpg"
       alt="Perfil"
     />
 
@@ -145,8 +151,6 @@
     <button class="cta" onclick="window.location.href='https://t.me/+XJbSkVdj38BiMmNh'">
       Entrar no Grupo VIP
     </button>
-
-    <div class="secure">🔒 Pagamento aprovado · Acesso imediato</div>
   </div>
 
 </body>
