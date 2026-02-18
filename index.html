@@ -17,30 +17,26 @@
   }(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
 
-  /* INICIALIZA PIXEL */
   fbq('init', '818826874479120');
   fbq('track', 'PageView');
 
   /* ==========================
-     PAGAMENTO CONFIRMADO
-     (PIXEL – 1 DISPARO)
+     EVENTO ÚNICO COM DEDUP
   ========================== */
-  if (!sessionStorage.getItem('pagamento_confirmado_enviado')) {
 
+  if (!sessionStorage.getItem('evento_pagamento_enviado')) {
+
+    const eventId = 'pc_' + Date.now();
+
+    // 🔵 Pixel (Browser)
     fbq('trackCustom', 'PagamentoConfirmado', {
       value: 19.97,
       currency: 'BRL'
+    }, {
+      eventID: eventId
     });
 
-    sessionStorage.setItem('pagamento_confirmado_enviado', 'true');
-  }
-
-  /* ==========================
-     CAPI – SERVER SIDE
-     (1 DISPARO)
-  ========================== */
-  if (!localStorage.getItem('capi_pagamento_enviado')) {
-
+    // 🔴 CAPI (Servidor via n8n)
     fetch('https://n8n.srv1211783.hstgr.cloud/webhook/meta-capi', {
       method: 'POST',
       headers: {
@@ -50,11 +46,11 @@
         event_name: 'PagamentoConfirmado',
         value: 19.97,
         currency: 'BRL',
-        event_id: 'pc_' + Date.now()
+        event_id: eventId
       })
     });
 
-    localStorage.setItem('capi_pagamento_enviado', 'true');
+    sessionStorage.setItem('evento_pagamento_enviado', 'true');
   }
   </script>
 
